@@ -23,6 +23,9 @@ async function loadMessages() {
 }
 
 const currentUser = "Sara";
+const server = "http://localhost:300";
+const state = { messages: [] };
+
 async function sendMessage(text) {
   try {
     const resp = await fetch("http://localhost:3000/messages", {
@@ -39,6 +42,24 @@ async function sendMessage(text) {
     console.log(err);
   }
 }
+
+const lastMessage = async function keepFetchingLastMessages() {
+  const lastMessageTimeStamp =
+    state.messages.length > 0
+      ? state.messages[state.messages.length - 1].timestamp
+      : null;
+  const query = lastMessageTimeStamp ? `?since=${lastMessageTimeStamp}` : "";
+  const url = `${server}/messages${query}`;
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+    state.messages.push(...data);
+    data.forEach(renderMessage);
+  } catch (err) {
+    console.log(err);
+  }
+  setTimeout(lastMessage, 1000);
+};
 
 messageForm.addEventListener("submit", function (e) {
   e.preventDefault();
