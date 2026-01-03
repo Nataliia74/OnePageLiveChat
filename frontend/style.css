@@ -46,7 +46,7 @@ textarea {
   padding: 0.5rem;
   margin-top: 0.5rem;
 }
-.user_list ul {
+/* .user_list ul {
   list-style: none;
 }
 
@@ -59,7 +59,7 @@ textarea {
 
 .user_list li:hover {
   background-color: #eee;
-}
+} */
 
 #chat_box {
   height: 300px; /* fixed height */
