@@ -1,5 +1,5 @@
 {
-  "name": "OnePageLiveChat",
+  "name": "one-page-live-chat",
   "version": "1.0.0",
   "description": "One page live chat application",
   "main": "server.js",
