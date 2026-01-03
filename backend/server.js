@@ -11,13 +11,13 @@ let messages = [
     message_id: 1,
     username: "Sara",
     text: "hello",
-    time: "22.05.2025",
+    timestamp: "22.05.2025",
   },
   {
     message_id: 2,
     username: "Sonya",
     text: "hi",
-    time: "23.09.2025",
+    timestamp: "23.09.2025",
   },
 ];
 
@@ -34,7 +34,7 @@ app.post("/messages", (req, resp) => {
     message_id: messages.length + 1,
     username,
     text,
-    time: new Date().toISOString(),
+    timestamp: new Date().toISOString(),
   };
   messages.push(message);
   resp.status(200).json(message);
