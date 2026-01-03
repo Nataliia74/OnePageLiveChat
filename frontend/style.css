@@ -1,0 +1,70 @@
+/* Reset / base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Layout */
+header {
+  background-color: #222;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Buttons */
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Inputs */
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+.user_list ul {
+  list-style: none;
+}
+
+.user_list li {
+  padding: 0.75rem;
+  background: white;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.user_list li:hover {
+  background-color: #eee;
+}
+
+#chat_box {
+  height: 300px; /* fixed height */
+  overflow-y: auto; /* vertical scrolling */
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
