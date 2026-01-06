@@ -3,31 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Page</title>
+    <title>LoginForm</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <div>
       <header>
-        <h1>Chat</h1>
+        <h1>Log In</h1>
       </header>
     </div>
-    <div id="chat_box"></div>
     <div>
-      <form id="message_form">
-        <textarea
-          id="message"
-          name="message"
-          placeholder="your message"
-          maxlength="2000"
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="username"
+          minlength="2"
           required
-        ></textarea>
-        <button type="submit">Send</button>
+        />
+        <!-- <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          placeholder="password"
+          minlength="8"
+          required
+        /> -->
+        <button type="submit">Login</button>
       </form>
+      <p id="errorMessage"></p>
+    </div>
+    <div>
+      <button id="logout">Logout</button>
     </div>
     <div>
       <footer></footer>
     </div>
-    <script src="chat.js"></script>
+    <script src="front.js"></script>
   </body>
 </html>

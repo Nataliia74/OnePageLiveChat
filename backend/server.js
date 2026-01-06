@@ -11,18 +11,32 @@ let messages = [
     message_id: 1,
     username: "Sara",
     text: "hello",
-    timestamp: "22.05.2025",
+    timestamp: new Date(2025, 5, 7).toISOString(),
   },
   {
     message_id: 2,
     username: "Sonya",
     text: "hi",
-    timestamp: "23.09.2025",
+    timestamp: new Date(2025, 9, 23).toISOString(),
   },
 ];
 
+let callbacksForNewMessages = [];
+
 app.get("/messages", (req, resp) => {
-  resp.json(messages);
+  const since = req.query.since ? new Date(req.query.since) : null;
+
+  if (since && isNaN(since)) {
+    return resp.status(400).json({ error: "Invalid since format" });
+  }
+  const newMessages = messages.filter(
+    (msg) => !since || new Date(msg.timestamp) > since
+  );
+  if (newMessages.length > 0) {
+    resp.json(newMessages);
+  } else {
+    callbacksForNewMessages.push((newMessages) => resp.json(newMessages));
+  }
 });
 
 app.post("/messages", (req, resp) => {
@@ -30,14 +44,18 @@ app.post("/messages", (req, resp) => {
   if (!username || !text) {
     return resp.status(400).json({ error: "Missing username or text message" });
   }
-  const message = {
+  const newMessage = {
     message_id: messages.length + 1,
     username,
     text,
     timestamp: new Date().toISOString(),
   };
-  messages.push(message);
-  resp.status(200).json(message);
+  messages.push(newMessage);
+  while (callbacksForNewMessages.length > 0) {
+    const callback = callbacksForNewMessages.pop();
+    callback([newMessage]);
+  }
+  resp.status(200).json(newMessage);
 });
 
 app.listen(port, () => {
