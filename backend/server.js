@@ -26,7 +26,7 @@ let callbacksForNewMessages = [];
 app.get("/messages", (req, resp) => {
   const sinceId = Number(req.query.sinceId);
 
-  if (sinceId && isNaN(sinceId)) {
+  if (req.query.sinceId !== undefined && isNaN(sinceId)) {
     return resp.status(400).json({ error: "Invalid since format" });
   }
   const newMessages = messages.filter(

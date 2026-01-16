@@ -9,7 +9,7 @@ if (!currentUser) {
   window.location.href = "index.html";
 }
 
-const server = "https://live-chat-backend.hosting.codeyourfuture.io";
+const server = "https://live-chat-backend.hosting.codeyourfuture.io/messages";
 const state = { messages: [] };
 
 function userNearThreshold() {
