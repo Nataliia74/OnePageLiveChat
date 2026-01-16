@@ -9,7 +9,7 @@ if (!currentUser) {
   window.location.href = "index.html";
 }
 
-const server = "http://localhost:3000";
+const server = "http://localhost:3000/messages";
 const state = { messages: [] };
 
 function userNearThreshold() {
@@ -37,7 +37,7 @@ function renderMessage(msg) {
 
 async function loadMessages() {
   try {
-    const resp = await fetch("http://localhost:3000/messages");
+    const resp = await fetch(server);
     const messages = await resp.json();
     chatArea.innerHTML = "";
 
@@ -50,7 +50,7 @@ async function loadMessages() {
 
 async function sendMessage(text) {
   try {
-    const resp = await fetch("http://localhost:3000/messages", {
+    const resp = await fetch(server, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: currentUser, text: text }),
@@ -66,13 +66,13 @@ async function sendMessage(text) {
   }
 }
 
-const lastMessage = async function keepFetchingLastMessages() {
-  const lastMessageTimeStamp =
+async function keepFetchingLastMessages() {
+  const lastMessageId =
     state.messages.length > 0
-      ? state.messages[state.messages.length - 1].timestamp
+      ? state.messages[state.messages.length - 1].message_id
       : null;
-  const query = lastMessageTimeStamp ? `?since=${lastMessageTimeStamp}` : "";
-  const url = `${server}/messages${query}`;
+  const query = lastMessageId ? `?since=${lastMessageId}` : "";
+  const url = `${server}${query}`;
   try {
     const resp = await fetch(url);
     const data = await resp.json();
@@ -88,9 +88,9 @@ const lastMessage = async function keepFetchingLastMessages() {
   } catch (err) {
     console.log(err);
   } finally {
-    setTimeout(lastMessage, 500);
+    setTimeout(keepFetchingLastMessages, 5000);
   }
-};
+}
 
 messageForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -114,5 +114,5 @@ logoutButton.addEventListener("click", () => {
 });
 
 loadMessages().then(() => {
-  lastMessage();
+  keepFetchingLastMessages();
 });
