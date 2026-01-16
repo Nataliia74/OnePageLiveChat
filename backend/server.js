@@ -24,13 +24,13 @@ let messages = [
 let callbacksForNewMessages = [];
 
 app.get("/messages", (req, resp) => {
-  const since = req.query.since ? new Date(req.query.since) : null;
+  const sinceId = Number(req.query.sinceId);
 
-  if (since && isNaN(since)) {
+  if (sinceId && isNaN(sinceId)) {
     return resp.status(400).json({ error: "Invalid since format" });
   }
   const newMessages = messages.filter(
-    (msg) => !since || new Date(msg.timestamp) > since
+    (msg) => !sinceId || msg.message_id > sinceId
   );
   if (newMessages.length > 0) {
     resp.json(newMessages);
@@ -45,7 +45,7 @@ app.post("/messages", (req, resp) => {
     return resp.status(400).json({ error: "Missing username or text message" });
   }
   const newMessage = {
-    message_id: messages.length + 1,
+    message_id: messages.length++,
     username,
     text,
     timestamp: new Date().toISOString(),
