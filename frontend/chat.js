@@ -71,7 +71,7 @@ async function keepFetchingLastMessages() {
     state.messages.length > 0
       ? state.messages[state.messages.length - 1].message_id
       : null;
-  const query = lastMessageId ? `?since=${lastMessageId}` : "";
+  const query = lastMessageId ? `?sinceId=${lastMessageId}` : "";
   const url = `${server}${query}`;
   try {
     const resp = await fetch(url);

@@ -51,6 +51,7 @@ app.post("/messages", (req, resp) => {
     timestamp: new Date().toISOString(),
   };
   messages.push(newMessage);
+  console.log("Messages in memory:", messages);
   while (callbacksForNewMessages.length > 0) {
     const callback = callbacksForNewMessages.pop();
     callback([newMessage]);
