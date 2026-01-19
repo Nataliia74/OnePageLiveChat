@@ -22,7 +22,7 @@ function userNearThreshold() {
   return false;
 }
 
-function renderMessage(msg) {
+export function renderMessage(msg) {
   const scroll = userNearThreshold();
   const messageInChatBox = document.createElement("div");
   messageInChatBox.className = "chat_messages";
@@ -35,7 +35,7 @@ function renderMessage(msg) {
   }
 }
 
-async function loadMessages() {
+export async function loadMessages() {
   try {
     const resp = await fetch(server);
     const messages = await resp.json();
@@ -48,7 +48,7 @@ async function loadMessages() {
   }
 }
 
-async function sendMessage(text) {
+export async function sendMessage(text) {
   try {
     const resp = await fetch(server, {
       method: "POST",
@@ -80,8 +80,8 @@ async function keepFetchingLastMessages() {
     let newMessages = data.filter(
       (msg) =>
         !state.messages.some(
-          (existing) => existing.message_id === msg.message_id
-        )
+          (existing) => existing.message_id === msg.message_id,
+        ),
     );
     state.messages.push(...newMessages);
     newMessages.forEach(renderMessage);
@@ -90,6 +90,11 @@ async function keepFetchingLastMessages() {
   } finally {
     setTimeout(keepFetchingLastMessages, 5000);
   }
+}
+
+export function logOut() {
+  localStorage.removeItem("username");
+  window.location.href = "index.html";
 }
 
 messageForm.addEventListener("submit", function (e) {
@@ -108,10 +113,7 @@ message.addEventListener("keydown", function (e) {
   }
 });
 
-logoutButton.addEventListener("click", () => {
-  localStorage.removeItem("username");
-  window.location.href = "index.html";
-});
+logoutButton.addEventListener("click", logOut);
 
 loadMessages().then(() => {
   keepFetchingLastMessages();

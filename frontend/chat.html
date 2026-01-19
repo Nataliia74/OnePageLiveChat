@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -31,6 +31,13 @@
     <div>
       <footer></footer>
     </div>
-    <script src="chat.js"></script>
+    <script type="module">
+      const useWebSocket = false;
+      if (useWebSocket) {
+        import("./websocket.js");
+      } else {
+        import("./chat.js");
+      }
+    </script>
   </body>
 </html>
