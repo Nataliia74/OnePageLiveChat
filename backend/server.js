@@ -1,12 +1,13 @@
 import express from "express";
 import cors from "cors";
+import http from "http";
 
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-let messages = [
+export let messages = [
   {
     message_id: 1,
     username: "Sara",
@@ -30,7 +31,7 @@ app.get("/messages", (req, resp) => {
     return resp.status(400).json({ error: "Invalid since format" });
   }
   const newMessages = messages.filter(
-    (msg) => !sinceId || msg.message_id > sinceId
+    (msg) => !sinceId || msg.message_id > sinceId,
   );
   if (newMessages.length > 0) {
     resp.json(newMessages);
@@ -59,6 +60,9 @@ app.post("/messages", (req, resp) => {
   resp.status(200).json(newMessage);
 });
 
-app.listen(port, () => {
+const server = http.createServer(app);
+server.listen(port, () => {
   console.log(`Server listen on ${port}`);
 });
+
+export default server;
