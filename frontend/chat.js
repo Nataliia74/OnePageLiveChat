@@ -10,6 +10,7 @@ if (!currentUser) {
 }
 
 const server = "https://live-chat-backend.hosting.codeyourfuture.io/messages";
+// const server = "http://localhost:3000/messages";
 const state = { messages: [] };
 
 function userNearThreshold() {
@@ -58,9 +59,6 @@ async function sendMessage(text) {
     if (!resp.ok) {
       throw new Error("Message failed to be sent");
     }
-    const message = await resp.json();
-    state.messages.push(message);
-    renderMessage(message);
   } catch (err) {
     console.log(err);
   }
@@ -80,11 +78,13 @@ async function keepFetchingLastMessages() {
     let newMessages = data.filter(
       (msg) =>
         !state.messages.some(
-          (existing) => existing.message_id === msg.message_id
-        )
+          (existing) => existing.message_id === msg.message_id,
+        ),
     );
-    state.messages.push(...newMessages);
-    newMessages.forEach(renderMessage);
+    if (newMessages.length > 0) {
+      state.messages.push(...newMessages);
+      newMessages.forEach(renderMessage);
+    }
   } catch (err) {
     console.log(err);
   } finally {
@@ -108,10 +108,12 @@ message.addEventListener("keydown", function (e) {
   }
 });
 
-logoutButton.addEventListener("click", () => {
+function logOut() {
   localStorage.removeItem("username");
   window.location.href = "index.html";
-});
+}
+
+logoutButton.addEventListener("click", logOut);
 
 loadMessages().then(() => {
   keepFetchingLastMessages();

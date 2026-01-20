@@ -30,7 +30,7 @@ app.get("/messages", (req, resp) => {
     return resp.status(400).json({ error: "Invalid since format" });
   }
   const newMessages = messages.filter(
-    (msg) => !sinceId || msg.message_id > sinceId
+    (msg) => !sinceId || msg.message_id > sinceId,
   );
   if (newMessages.length > 0) {
     resp.json(newMessages);
@@ -45,7 +45,7 @@ app.post("/messages", (req, resp) => {
     return resp.status(400).json({ error: "Missing username or text message" });
   }
   const newMessage = {
-    message_id: messages.length++,
+    message_id: messages.length + 1,
     username,
     text,
     timestamp: new Date().toISOString(),
