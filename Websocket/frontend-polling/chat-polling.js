@@ -7,9 +7,9 @@ const currentUser = localStorage.getItem("username");
 
 // const enablePolling = window.enablePolling || false;
 
-// if (!currentUser) {
-//   window.location.href = "../polling/index.html";
-// }
+if (!currentUser) {
+  window.location.href = "index.html";
+}
 
 const server =
   "https://nataliia74-websocket-backend.hosting.codeyourfuture.io/messages";

@@ -5,6 +5,10 @@ const chatArea = document.getElementById("chat_box");
 
 const currentUser = localStorage.getItem("username");
 
+if (!currentUser) {
+  window.location.href = "index.html";
+}
+
 function userNearThreshold() {
   const threshold = 50;
   const actualPosition =
