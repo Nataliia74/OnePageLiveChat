@@ -1,4 +1,4 @@
-import { renderMessage, logOut } from "./chat-polling.js";
+import { renderMessage, logOut } from "../frontend-polling/chat-polling.js";
 
 const messageForm = document.getElementById("message_form");
 const messageInput = document.getElementById("message");
