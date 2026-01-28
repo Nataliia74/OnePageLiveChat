@@ -2,6 +2,7 @@ const messageForm = document.getElementById("message_form");
 const messageInput = document.getElementById("message");
 const logoutButton = document.getElementById("logout");
 const chatArea = document.getElementById("chat_box");
+
 const currentUser = localStorage.getItem("username");
 
 function userNearThreshold() {
@@ -66,6 +67,13 @@ messageForm.addEventListener("submit", (e) => {
 
   const text = messageInput.value.trim();
   if (!text) return;
+
+  console.log("WS readyState:", ws.readyState); // 0 connecting, 1 open, 2 closing, 3 closed
+
+  if (ws.readyState !== WebSocket.OPEN) {
+    console.error("WebSocket not open, cannot send");
+    return;
+  }
 
   ws.send(
     JSON.stringify({
