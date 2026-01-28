@@ -72,13 +72,6 @@ messageForm.addEventListener("submit", (e) => {
   const text = messageInput.value.trim();
   if (!text) return;
 
-  console.log("WS readyState:", ws.readyState); // 0 connecting, 1 open, 2 closing, 3 closed
-
-  if (ws.readyState !== WebSocket.OPEN) {
-    console.error("WebSocket not open, cannot send");
-    return;
-  }
-
   ws.send(
     JSON.stringify({
       command: "send-message",
@@ -90,6 +83,13 @@ messageForm.addEventListener("submit", (e) => {
   );
 
   messageInput.value = "";
+});
+
+messageInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    messageForm.requestSubmit();
+  }
 });
 
 logoutButton.addEventListener("click", logOut);
