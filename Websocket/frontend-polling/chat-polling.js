@@ -5,11 +5,11 @@ const logoutButton = document.getElementById("logout");
 
 const currentUser = localStorage.getItem("username");
 
-const enablePolling = window.enablePolling || false;
+// const enablePolling = window.enablePolling || false;
 
-if (!currentUser) {
-  window.location.href = "../polling/index.html";
-}
+// if (!currentUser) {
+//   window.location.href = "../polling/index.html";
+// }
 
 const server =
   "https://nataliia74-websocket-backend.hosting.codeyourfuture.io/messages";
@@ -118,8 +118,8 @@ export function logOut() {
 
 logoutButton.addEventListener("click", logOut);
 
-if (enablePolling) {
-  loadMessages().then(() => {
-    keepFetchingLastMessages();
-  });
-}
+// if (enablePolling) {
+loadMessages().then(() => {
+  keepFetchingLastMessages();
+});
+// }
