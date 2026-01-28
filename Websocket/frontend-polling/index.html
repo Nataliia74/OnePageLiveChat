@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoginForm</title>
+    <link rel="stylesheet" type="text/css" href="../shared/style.css" />
+  </head>
+  <body>
+    <div>
+      <header>
+        <h1>Log In</h1>
+      </header>
+    </div>
+    <div>
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="username"
+          minlength="2"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <p id="errorMessage"></p>
+    </div>
+    <div>
+      <button id="logout">Logout</button>
+    </div>
+    <div>
+      <footer></footer>
+    </div>
+    <script src="front.js"></script>
+  </body>
+</html>

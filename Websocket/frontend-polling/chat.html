@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Page</title>
+    <link rel="stylesheet" type="text/css" href="../shared/style.css" />
+  </head>
+  <body>
+    <div>
+      <header>
+        <h1>Chat</h1>
+      </header>
+    </div>
+    <div id="chat_box"></div>
+    <div>
+      <form id="message_form">
+        <textarea
+          id="message"
+          name="message"
+          placeholder="your message"
+          maxlength="2000"
+          required
+        ></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <div>
+      <button id="logout">Logout</button>
+    </div>
+    <div>
+      <footer></footer>
+    </div>
+    <script>
+      window.enablePolling = "true;";
+    </script>
+    <script type="module" src="../shared/chat-polling.js"></script>
+  </body>
+</html>
