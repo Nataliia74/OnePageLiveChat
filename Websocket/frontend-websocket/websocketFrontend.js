@@ -1,12 +1,38 @@
-import { renderMessage, logOut } from "../frontend-polling/chat-polling.js";
-
 const messageForm = document.getElementById("message_form");
 const messageInput = document.getElementById("message");
 const logoutButton = document.getElementById("logout");
 
+function userNearThreshold() {
+  const threshold = 50;
+  const actualPosition =
+    chatArea.scrollHeight - chatArea.scrollTop - chatArea.clientHeight;
+  if (Math.abs(actualPosition) < threshold) {
+    return true;
+  }
+  return false;
+}
+
+function renderMessage(msg) {
+  const scroll = userNearThreshold();
+  const messageInChatBox = document.createElement("div");
+  messageInChatBox.className = "chat_messages";
+  messageInChatBox.innerText = `${msg.username}: ${msg.text}`;
+
+  chatArea.appendChild(messageInChatBox);
+
+  if (scroll) {
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }
+}
+
+export function logOut() {
+  localStorage.removeItem("username");
+  window.location.href = "index.html";
+}
+
 const ws = new WebSocket(
   // "ws://localhost:3000",
-  "ws://nataliia74-websocket-backend.hosting.codeyourfuture.io/messages",
+  "wss://nataliia74-websocket-backend.hosting.codeyourfuture.io",
 );
 
 ws.addEventListener("open", () => {

@@ -26,7 +26,7 @@ function userNearThreshold() {
   return false;
 }
 
-export function renderMessage(msg) {
+function renderMessage(msg) {
   const scroll = userNearThreshold();
   const messageInChatBox = document.createElement("div");
   messageInChatBox.className = "chat_messages";
@@ -111,7 +111,7 @@ message.addEventListener("keydown", function (e) {
   }
 });
 
-export function logOut() {
+function logOut() {
   localStorage.removeItem("username");
   window.location.href = "index.html";
 }
