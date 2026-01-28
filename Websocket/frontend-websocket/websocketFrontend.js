@@ -2,6 +2,7 @@ const messageForm = document.getElementById("message_form");
 const messageInput = document.getElementById("message");
 const logoutButton = document.getElementById("logout");
 const chatArea = document.getElementById("chat_box");
+const currentUser = localStorage.getItem("username");
 
 function userNearThreshold() {
   const threshold = 50;
