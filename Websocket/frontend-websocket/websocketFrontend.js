@@ -6,7 +6,7 @@ const logoutButton = document.getElementById("logout");
 
 const ws = new WebSocket(
   // "ws://localhost:3000",
-  "ws://nataliia74-websocket-backend.hosting.codeyourfuture.io",
+  "ws://nataliia74-websocket-backend.hosting.codeyourfuture.io/messages",
 );
 
 ws.addEventListener("open", () => {

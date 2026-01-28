@@ -9,8 +9,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 //
 const allowedOrigins = [
-  "https://nataliia74-websocket-frontend-pollingpart.hosting.codeyourfuture.io",
-  "https://nataliia74-websocketapp-frontend-websocketconnection4.hosting.codeyourfuture.io",
+  "https://nataliia74-websocket-frontend-pollingpart.hosting.codeyourfuture.io/polling",
+  "https://nataliia74-websocketapp-frontend-websocketconnection4.hosting.codeyourfuture.io/websocket",
 ];
 
 app.use(
