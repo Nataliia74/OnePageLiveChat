@@ -7,7 +7,29 @@ import { fileURLToPath } from "url";
 
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors());
+//
+const allowedOrigins = [
+  "https://nataliia74-websocket-frontend-pollingpart.hosting.codeyourfuture.io",
+  "https://nataliia74-websocketapp-frontend-websocketconnection4.hosting.codeyourfuture.io",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow server-to-server tools / curl (no Origin header)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  }),
+);
+
+app.options("*", cors());
 app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,8 +45,6 @@ app.use(
   "/websocket",
   express.static(path.join(__dirname, "../frontend-websocket")),
 );
-
-app.use("/shared", express.static(path.join(__dirname, "../frontend-shared")));
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });

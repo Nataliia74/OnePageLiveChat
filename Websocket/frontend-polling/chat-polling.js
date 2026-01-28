@@ -11,7 +11,7 @@ if (!currentUser) {
   window.location.href = "../polling/index.html";
 }
 
-const server = "https://live-chat-backend.hosting.codeyourfuture.io/messages";
+const server = "https://nataliia74-websocket-backend.hosting.codeyourfuture.io";
 // const server = "http://localhost:3000/messages";
 const state = { messages: [] };
 
